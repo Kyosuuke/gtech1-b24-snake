@@ -1,6 +1,7 @@
 #include "exercice1.hpp"
 
 
+
 int MainSDLWindow::Init(const char *windowName, int width, int height){
     this->window = SDL_CreateWindow(windowName,
     SDL_WINDOWPOS_CENTERED,
@@ -16,6 +17,10 @@ SDL_Renderer* MainSDLWindow::GetRenderer(void){
 
 MainSDLWindow::MainSDLWindow(){
     printf("c'est bon");
+}
+
+MainSDLWindow::~MainSDLWindow(){
+    
 }
 
 int main(void) {
