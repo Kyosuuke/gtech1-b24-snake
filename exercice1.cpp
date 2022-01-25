@@ -1,42 +1,59 @@
-#include "exercice1.hpp"
-
-
+#include "snake.hpp"
 
 int MainSDLWindow::Init(const char *windowName, int width, int height){
     this->window = SDL_CreateWindow(windowName,
     SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED, width , height , SDL_WINDOW_RESIZABLE);
-    return 0;
+    if(window == NULL) // Gestion des erreurs
+ {
+    printf("Erreur lors de la creation d'une fenetre : %s",SDL_GetError());
+    return EXIT_FAILURE;
+ }
 }
+
 
 SDL_Renderer* MainSDLWindow::GetRenderer(void){
     return this->renderer;
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED |
-    SDL_RENDERER_PRESENTVSYNC);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if(renderer == NULL)//gestion des erreurs
+{
+    printf("Erreur lors de la creation d'un renderer : %s",SDL_GetError());
+    return EXIT_FAILURE;
+}
+SDL_Delay(3000);//pause de 3 secondes
+
 }
 
 MainSDLWindow::MainSDLWindow(){
-    printf("c'est bon");
+    window = NULL;
+    renderer = NULL;
 }
 
 MainSDLWindow::~MainSDLWindow(){
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    SDL_Quit();  //on quitte la SDL
+
+    SDL_Delay(3000);//pause de 3 secondes
     
 }
 
-int main(void) {
-    if(SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        printf("Erreur d'initialisation de la SDL : %s",SDL_GetError());//on affiche l'erreur
-        return EXIT_FAILURE;//on sort du programme pour éviter de plus gros problèmes
-    }
+int SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255){
+    return 0;
+}
 
+int main(void) {
+    if(SDL_VideoInit(NULL) < 0) // Initialisation de la SDL
+{
+    printf("Erreur d'initialisation de la SDL : %s",SDL_GetError());
+    return EXIT_FAILURE;
+}
     MainSDLWindow* main_window = new MainSDLWindow;
     main_window->Init("Snake", 600, 600);
     SDL_Renderer* main_window_renderer = main_window->GetRenderer();
-
     SDL_RenderDrawRect;
+    SDL_Delay(3000);//pause de 3 secondes
+    
+}
 
-    SDL_Delay(3000);  //pause de 3 secondes
-
-    SDL_Quit();  //on quitte la SDL
 }
