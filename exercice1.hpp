@@ -17,4 +17,6 @@ public:
     int Init(const char *windowName, int width, int height);
 
     SDL_Renderer* GetRenderer(void);
+
+    int SDL_SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r,  Uint8 g , Uint8 b , Uint8  a);
 };
