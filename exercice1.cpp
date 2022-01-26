@@ -32,8 +32,6 @@ MainSDLWindow::~MainSDLWindow(){
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();  //on quitte la SDL
-
-    SDL_Delay(3000);//pause de 3 secondes
     
 }
 
@@ -44,14 +42,25 @@ int main(void) {
     return EXIT_FAILURE;
 }
     //Make sure the program waits for a quit
-    MainSDLWindow* main_window = new MainSDLWindow;
+    SDL_Event event;
+    MainSDLWindow* main_window = new MainSDLWindow();
     main_window->Init("Snake", 600, 600);
     SDL_Renderer* main_window_renderer = main_window->GetRenderer();
-    while (true){
+    bool continuePlay = true;
+    while (continuePlay){
+        //While there's an event to handle
+        while(SDL_PollEvent(&event))
+        {
+            if(event.type == SDL_QUIT)
+            {
+                //Quit the program
+                continuePlay = false;
+            }    
+        }
         SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 0, 255);
         SDL_RenderClear(main_window_renderer);
         SDL_RenderDrawRect;
-        SDL_Quit();
-        return 0;
     } 
+    delete main_window;
+    return 0;
 }
