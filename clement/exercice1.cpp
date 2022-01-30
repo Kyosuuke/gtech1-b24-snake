@@ -42,12 +42,12 @@ int main(void) {
     return EXIT_FAILURE;
 }
 
-SDL_Rect srcrect;
+SDL_Rect r;
 
-srcrect.x = 0;
-srcrect.y = 0;
-srcrect.w = 32;
-srcrect.h = 32;
+r.x = 250;
+r.y = 250;
+r.w = 32;
+r.h = 32;
 
     //Make sure the program waits for a quit
     SDL_Event event;
@@ -55,6 +55,7 @@ srcrect.h = 32;
     main_window->Init("Snake", 600, 600);
     SDL_Renderer* main_window_renderer = main_window->GetRenderer();
     bool continuePlay = true;
+    
     while (continuePlay){
         //While there's an event to handle
         while(SDL_PollEvent(&event))
@@ -67,7 +68,9 @@ srcrect.h = 32;
         }
         SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 0, 255);
         SDL_RenderClear(main_window_renderer);
-        SDL_RenderDrawRects(main_window_renderer, 0, 1);
+        SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 255, 255);
+        SDL_RenderFillRect(main_window_renderer, &r);
+        SDL_RenderPresent(main_window_renderer);
     } 
     delete main_window;
     return 0;
