@@ -1,10 +1,20 @@
+#include <SDL2/SDL.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "exercice1.hpp"  
 
 int MainSDLWindow::Init(const char* windowName, int width, int height)
 {
+    if(SDL_VideoInit(NULL) < 0) // Initialisation de la SDL
+    {
+        printf("Erreur d'initialisation de la SDL : %s",SDL_GetError());
+        return EXIT_FAILURE;
+    }
     this->window = SDL_CreateWindow(windowName,
-    SDL_WINDOWPOS_CENTERED,
-    SDL_WINDOWPOS_CENTERED, width , height , SDL_WINDOW_RESIZABLE);
+        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+        width, height,
+        SDL_WINDOW_RESIZABLE);
     if(window == NULL) // Gestion des erreurs
     {
         printf("Erreur lors de la creation d'une fenetre : %s",SDL_GetError());
@@ -29,8 +39,8 @@ MainSDLWindow::MainSDLWindow(){
 }
 
 MainSDLWindow::~MainSDLWindow(){
-    SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
     SDL_Quit();  //on quitte la SDL
 }
 
