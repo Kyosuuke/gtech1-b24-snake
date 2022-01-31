@@ -2,7 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "exercice1.hpp"  
+#include "exercice1.hpp" 
+
+typedef enum {
+    UP, DOWN, LEFT, RIGHT
+} Direct;
 
 int MainSDLWindow::Init(const char* windowName, int width, int height)
 {
@@ -14,7 +18,7 @@ int MainSDLWindow::Init(const char* windowName, int width, int height)
     this->window = SDL_CreateWindow(windowName,
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         width, height,
-        SDL_WINDOW_RESIZABLE);
+        SDL_WINDOW_MINIMIZED);
     if(window == NULL) // Gestion des erreurs
     {
         printf("Erreur lors de la creation d'une fenetre : %s",SDL_GetError());
@@ -45,26 +49,51 @@ MainSDLWindow::~MainSDLWindow(){
 }
 
 
-void keyboard() {
+void keyboard(Direct* direction) {
   const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
   if (keystates[SDL_SCANCODE_UP]) {
-      printf("UP\n");
-      // r.x++;
+    printf("UP\n");
+    *direction = UP;
   }
   if (keystates[SDL_SCANCODE_DOWN]) {
     printf("DOWN\n");
+    *direction = DOWN;
   }
   if (keystates[SDL_SCANCODE_LEFT]) {
     printf("LEFT\n");
+    *direction = LEFT;
   }
   if (keystates[SDL_SCANCODE_RIGHT]) {
     printf("RIGHT\n");
+    *direction = RIGHT; 
   }
+}
+
+void move(Direct directionToMove, SDL_Rect* r){
+    switch (directionToMove)
+    {
+    case UP:
+        r->y -= 1;
+        break;
+    
+    case DOWN:
+        r->y += 1;
+        break;
+
+    case LEFT:
+        r->x -= 1;
+        break;
+
+    case RIGHT:
+        r->x += 1;
+        break;
+    }
 }
 
 int main(void) {
     int frame_delay;
+    Direct direction = UP;
     int width = 600, height = 600;
     int square_size = 32;
     SDL_Rect r = {(width-square_size)/2, (height-square_size)/2, square_size, square_size};
@@ -86,6 +115,9 @@ int main(void) {
                 continuePlay = false;
             }    
         }
+
+        keyboard(&direction);
+        move(direction, &r);
         SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 0, 255);
         SDL_RenderClear(main_window_renderer);
         SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 255, 255);
