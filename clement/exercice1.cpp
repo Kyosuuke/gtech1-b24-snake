@@ -45,6 +45,7 @@ MainSDLWindow::~MainSDLWindow(){
 }
 
 
+<<<<<<< HEAD
 void keyboard() {
   const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
@@ -62,6 +63,21 @@ void keyboard() {
     printf("RIGHT\n");
   }
 }
+=======
+int main(void) {
+    if(SDL_VideoInit(NULL) < 0) // Initialisation de la SDL
+{
+    printf("Erreur d'initialisation de la SDL : %s",SDL_GetError());
+    return EXIT_FAILURE;
+}
+
+SDL_Rect r;
+
+r.x = 250;
+r.y = 250;
+r.w = 32;
+r.h = 32;
+>>>>>>> 83957193567b8eefd3a3420d56ae47c4a12aebf4
 
 int main(void) {
     int width = 600, height = 600;
@@ -75,7 +91,11 @@ int main(void) {
     SDL_Renderer* main_window_renderer = main_window->GetRenderer();
     bool continuePlay = true;
     
+<<<<<<< HEAD
     do{
+=======
+    while (continuePlay){
+>>>>>>> 83957193567b8eefd3a3420d56ae47c4a12aebf4
         //While there's an event to handle
         while(SDL_PollEvent(&event))
         {
@@ -90,6 +110,7 @@ int main(void) {
         SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 255, 255);
         SDL_RenderFillRect(main_window_renderer, &r);
         SDL_RenderPresent(main_window_renderer);
+<<<<<<< HEAD
     } while (continuePlay);
 
     if (main_window != NULL)
@@ -98,3 +119,9 @@ int main(void) {
 }
 
 
+=======
+    } 
+    delete main_window;
+    return 0;
+}
+>>>>>>> 83957193567b8eefd3a3420d56ae47c4a12aebf4
