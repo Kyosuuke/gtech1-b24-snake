@@ -45,27 +45,37 @@ MainSDLWindow::~MainSDLWindow(){
 }
 
 
-int main(void) {
-    if(SDL_VideoInit(NULL) < 0) // Initialisation de la SDL
-{
-    printf("Erreur d'initialisation de la SDL : %s",SDL_GetError());
-    return EXIT_FAILURE;
+void keyboard() {
+  const Uint8 *keystates = SDL_GetKeyboardState(NULL);
+
+  if (keystates[SDL_SCANCODE_UP]) {
+      printf("UP\n");
+      // r.x++;
+  }
+  if (keystates[SDL_SCANCODE_DOWN]) {
+    printf("DOWN\n");
+  }
+  if (keystates[SDL_SCANCODE_LEFT]) {
+    printf("LEFT\n");
+  }
+  if (keystates[SDL_SCANCODE_RIGHT]) {
+    printf("RIGHT\n");
+  }
 }
 
-SDL_Rect srcrect;
-
-srcrect.x = 0;
-srcrect.y = 0;
-srcrect.w = 32;
-srcrect.h = 32;
-
+int main(void) {
+    int width = 600, height = 600;
+    int square_size = 32;
+    SDL_Rect r = {(width-square_size)/2, (height-square_size)/2, square_size, square_size};
+    
     //Make sure the program waits for a quit
     SDL_Event event;
     MainSDLWindow* main_window = new MainSDLWindow();
-    main_window->Init("Snake", 600, 600);
+    main_window->Init("Snake", width, height);
     SDL_Renderer* main_window_renderer = main_window->GetRenderer();
     bool continuePlay = true;
-    while (continuePlay){
+    
+    do{
         //While there's an event to handle
         while(SDL_PollEvent(&event))
         {
@@ -77,8 +87,14 @@ srcrect.h = 32;
         }
         SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 0, 255);
         SDL_RenderClear(main_window_renderer);
-        SDL_RenderDrawRects(main_window_renderer, 0, 1);
-    } 
-    delete main_window;
+        SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 255, 255);
+        SDL_RenderFillRect(main_window_renderer, &r);
+        SDL_RenderPresent(main_window_renderer);
+    } while (continuePlay);
+
+    if (main_window != NULL)
+        delete main_window;
     return 0;
 }
+
+
