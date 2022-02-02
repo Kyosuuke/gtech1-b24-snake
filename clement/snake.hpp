@@ -2,13 +2,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "segment.hpp"
 
 class Snake
 {
 private :
+    Segment* head;
+    Snake* keyboard;
 
 public :
-    int SDL_SetRenderTarget(SDL_Renderer* renderer, SDL_Texture*  texture);
+    typedef enum {
+        UP, DOWN, LEFT, RIGHT
+    } Direct;   
 
-    const Uint8 *keystates = SDL_GetKeyboardState(NULL);
-}
+    void keyboard(Direct* direction);
+
+    void move(Direct directionToMove, SDL_Rect* r);
+};
+

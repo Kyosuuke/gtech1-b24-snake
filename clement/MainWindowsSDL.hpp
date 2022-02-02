@@ -1,8 +1,3 @@
-#include <SDL2/SDL.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 class MainSDLWindow
 {
 private:
@@ -19,4 +14,9 @@ public:
 
     SDL_Renderer* GetRenderer(void);
 
+    int SDL_SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r,  Uint8 g , Uint8 b , Uint8  a);
+    
+    int SDL_SetRenderTarget(SDL_Renderer* renderer , SDL_Texture*  texture);
+
+    int SDL_RenderDrawRects(SDL_Renderer* renderer, const SDL_Rect * rects, int count);
 };

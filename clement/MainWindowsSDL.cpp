@@ -1,8 +1,6 @@
 #include <SDL2/SDL.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "exercice1.hpp" 
+#include "MainWindowsSDL.hpp" 
+#include "snake.hpp"
 
 typedef enum {
     UP, DOWN, LEFT, RIGHT
@@ -48,65 +46,26 @@ MainSDLWindow::~MainSDLWindow(){
     SDL_Quit();  //on quitte la SDL
 }
 
-
-void keyboard(Direct* direction) {
-  const Uint8 *keystates = SDL_GetKeyboardState(NULL);
-
-  if (keystates[SDL_SCANCODE_UP]) {
-    printf("UP\n");
-    *direction = UP;
-  }
-  if (keystates[SDL_SCANCODE_DOWN]) {
-    printf("DOWN\n");
-    *direction = DOWN;
-  }
-  if (keystates[SDL_SCANCODE_LEFT]) {
-    printf("LEFT\n");
-    *direction = LEFT;
-  }
-  if (keystates[SDL_SCANCODE_RIGHT]) {
-    printf("RIGHT\n");
-    *direction = RIGHT; 
-  }
-}
-
-void move(Direct directionToMove, SDL_Rect* r){
-    switch (directionToMove)
-    {
-    case UP:
-        r->y -= 1;
-        break;
-    
-    case DOWN:
-        r->y += 1;
-        break;
-
-    case LEFT:
-        r->x -= 1;
-        break;
-
-    case RIGHT:
-        r->x += 1;
-        break;
-    }
-}
-
 int main(void) {
     int frame_delay;
+    Uint32 frame_start;
     Direct direction = UP;
     int width = 600, height = 600;
     int square_size = 32;
     SDL_Rect r = {(width-square_size)/2, (height-square_size)/2, square_size, square_size};
-    
-    //Make sure the program waits for a quit
-    SDL_Event event;
+    SDL_Event event; 
     MainSDLWindow* main_window = new MainSDLWindow();
     main_window->Init("Snake", width, height);
     SDL_Renderer* main_window_renderer = main_window->GetRenderer();
     bool continuePlay = true;
+    Snake* s = new Snake();
+    Direct* direction = new Direct();
+
     
     do{
-        //While there's an event to handle
+
+        frame_start = SDL_GetTicks();
+        
         while(SDL_PollEvent(&event))
         {
             if(event.type == SDL_QUIT)
@@ -116,8 +75,8 @@ int main(void) {
             }    
         }
 
-        keyboard(&direction);
-        move(direction, &r);
+        s->keyboard(&direction);
+        s->move(direction, &r);
         SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 0, 255);
         SDL_RenderClear(main_window_renderer);
         SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 255, 255);
