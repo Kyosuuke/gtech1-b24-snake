@@ -1,22 +1,50 @@
+#ifndef SNAKE_HPP
+#define SNAKE_HPP
+
 #include <SDL2/SDL.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include "segment.hpp"
+#include "MainWindowsSDL.hpp"
+
+typedef enum {
+    UP, DOWN, LEFT, RIGHT
+} Direct;   
+class Segment
+{
+private:
+    Segment* next;
+    int x;
+    int y;
+    Direct direction;
+
+public:
+    Segment(int x, int y, Direct direction, Segment* next);
+
+    ~Segment();
+
+    Direct GetDirection();
+    int GetX();
+    int GetY();
+
+    void SetDirection(Direct direction);
+    void AddToX(int x);
+    void AddToY(int y);    
+};
 
 class Snake
 {
 private :
     Segment* head;
-    Snake* keyboard;
 
 public :
-    typedef enum {
-        UP, DOWN, LEFT, RIGHT
-    } Direct;   
+    Snake(int x, int y, Direct direction);
 
-    void keyboard(Direct* direction);
+    ~Snake();
 
-    void move(Direct directionToMove, SDL_Rect* r);
+    void keyboard();
+
+    void move();
+
+    void draw(SDL_Renderer* main_window_renderer);
 };
 
+#endif

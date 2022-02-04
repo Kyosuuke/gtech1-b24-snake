@@ -1,11 +1,20 @@
-#include <SDL2/SDL.h>
+#ifndef FRUIT_HPP
+#define FRUIT_HPP
 
-class fruit
+#include <SDL2/SDL.h>
+#include "MainWindowsSDL.hpp"
+#include "snake.hpp"
+
+class food
 {
 private:
+    int x;
+    int y;
     
 public:
+    food();
 
-    void eat();
+    ~food();
+};
 
-}
+#endif

@@ -2,10 +2,6 @@
 #include "MainWindowsSDL.hpp" 
 #include "snake.hpp"
 
-typedef enum {
-    UP, DOWN, LEFT, RIGHT
-} Direct;
-
 int MainSDLWindow::Init(const char* windowName, int width, int height)
 {
     if(SDL_VideoInit(NULL) < 0) // Initialisation de la SDL
@@ -58,10 +54,8 @@ int main(void) {
     main_window->Init("Snake", width, height);
     SDL_Renderer* main_window_renderer = main_window->GetRenderer();
     bool continuePlay = true;
-    Snake* s = new Snake();
-    Direct* direction = new Direct();
+    Snake* s = new Snake(width/2, height/2, UP);
 
-    
     do{
 
         frame_start = SDL_GetTicks();
@@ -75,13 +69,10 @@ int main(void) {
             }    
         }
 
-        s->keyboard(&direction);
-        s->move(direction, &r);
-        SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 0, 255);
-        SDL_RenderClear(main_window_renderer);
-        SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 255, 255);
-        SDL_RenderFillRect(main_window_renderer, &r);
-        SDL_RenderPresent(main_window_renderer);
+        s->keyboard();
+        s->move();
+        s->draw(main_window_renderer);
+        
     } while (continuePlay);
 
     if (main_window != NULL)
