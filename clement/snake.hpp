@@ -41,9 +41,7 @@ public :
     ~Snake();
 
     void keyboard();
-
     void move();
-
     void draw(SDL_Renderer* main_window_renderer);
 };
 
