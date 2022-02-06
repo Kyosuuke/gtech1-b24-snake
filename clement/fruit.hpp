@@ -8,14 +8,17 @@
 
 class fruit
 {
-private:
+
+public:
+    
     int x;
     int y;
-    int rand;
-public:
-    fruit(int x, int y);
+    fruit();
 
     ~fruit();
+    void apple();
+    void draw(SDL_Renderer*renderer);
+    
 };
 
 #endif
