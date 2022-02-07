@@ -25,6 +25,7 @@ public:
     int GetX();
     int GetY();
 
+    void Tail(int x, int y, Direct direction);
     void SetDirection(Direct direction);
     void AddToX(int x);
     void AddToY(int y);    
@@ -34,12 +35,12 @@ class Snake
 {
 private :
     Segment* head;
-
 public :
     Snake(int x, int y, Direct direction);
 
     ~Snake();
 
+    bool collisions();
     void keyboard();
     void move();
     void draw(SDL_Renderer* main_window_renderer);

@@ -7,9 +7,10 @@
 class playground
 {
 private:
-
+    int x;
+    int y;
 public:
-
+    
 };
 
 #endif

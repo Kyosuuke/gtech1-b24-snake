@@ -1,5 +1,10 @@
 #include <SDL2/SDL.h>
 #include "snake.hpp"
+#include "MainWindowsSDL.hpp"
+
+int square_size = 30;
+int height = 600;
+int width = 600;
 
 Segment::Segment(int x, int y, Direct direction, Segment* next){
   this->x = x;
@@ -41,23 +46,18 @@ void Snake::keyboard() {
   const Uint8 *keystates = SDL_GetKeyboardState(NULL);
 
   if (keystates[SDL_SCANCODE_UP]) {
-    printf("UP\n");
     head->SetDirection(UP);
   }
   if (keystates[SDL_SCANCODE_DOWN]) {
-    printf("DOWN\n");
     head->SetDirection(DOWN);
   }
   if (keystates[SDL_SCANCODE_LEFT]) {
-    printf("LEFT\n");
     head->SetDirection(LEFT);
   }
   if (keystates[SDL_SCANCODE_RIGHT]) {
-    printf("RIGHT\n");
     head->SetDirection(RIGHT);
   }
 }
-
 
 void Snake::move(){
     switch (head->GetDirection())
@@ -81,10 +81,22 @@ void Snake::move(){
 }
 
 void Snake::draw(SDL_Renderer* main_window_renderer){
-  SDL_Rect rect_to_draw = {head->GetX(), head->GetY(), 32, 32};
+  SDL_Rect rect_to_draw = {head->GetX(), head->GetY(), 30, 30};
   SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 0, 255);
   SDL_RenderClear(main_window_renderer);
   SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 255, 255);
   SDL_RenderFillRect(main_window_renderer, &rect_to_draw);
   SDL_RenderPresent(main_window_renderer);
 }
+
+bool Snake::collisions(){
+  if (head->GetY() + square_size <= height)
+    return ;
+  if (head->GetY() >= square_size + height)
+    return false;
+  if (head->GetX() + square_size <= height)
+    return false;
+  if (head->GetY() >= square_size + height)
+    return false;
+  return true;
+  }
