@@ -8,6 +8,18 @@ Segment::Segment(int x, int y, Direct direction, Segment* next){
   this->next = next;
 }
 
+Segment* Segment::Getnext(){
+    return this->next;
+}
+
+void Segment::Setnext(int x,int y, int prevdir){
+    this->next = new Segment();
+    this->next->x = x;
+    this->next->y = y;
+    this->next->direction = prevdir;
+    
+}
+
 void Segment::SetDirection(Direct direction){
   this->direction = direction;
 }
@@ -56,10 +68,32 @@ void Snake::keyboard() {
     printf("RIGHT\n");
     head->SetDirection(RIGHT);
   }
+  
+}
+
+Segment* Snake::Gethead(){
+    return head;
+}
+
+void Snake::Eat() {
+  if(this->head->Getnext() != NULL){
+        printf("test");
+        this->head->Getnext()->Setnext(this->prev_tail_x,this->prev_tail_y,this->dir_prev);
+    }
+    else{
+        this->head->Setnext(this->prev_tail_x,this->prev_tail_y,this->dir_prev);
+    }
 }
 
 
+
+
 void Snake::move(){
+  
+  this->prev_tail_x =this->head->x;
+    this->prev_tail_y =this->head->y;
+    this->dir_prev = this->head->direction;
+  
     switch (head->GetDirection())
     {
     case UP:
