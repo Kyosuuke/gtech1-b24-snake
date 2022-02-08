@@ -44,6 +44,10 @@ public :
     void keyboard();
     void move();
     void draw(SDL_Renderer* main_window_renderer);
+    
+    Segment* Snake::Gethead();
+    void Snake::Eat();
+    
 };
 
 #endif
