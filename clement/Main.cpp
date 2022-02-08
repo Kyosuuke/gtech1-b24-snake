@@ -12,13 +12,14 @@ int main(void) {
     Uint32 frame_start;
     Direct direction = UP;
     int width = 600, height = 600;
-    int square_size = 30;
+    int square_size = 20;
     SDL_Rect r = {(width-square_size)/2, (height-square_size)/2, square_size, square_size};
     SDL_Event event; 
     MainSDLWindow* main_window = new MainSDLWindow();
     main_window->Init("Snake", width, height);
-    SDL_Renderer* main_window_renderer = main_window->GetRenderer();
+    SDL_Renderer* renderer = main_window->GetRenderer();
     bool continuePlay = true;
+    Apple* a = new Apple();
     Snake* s = new Snake(width/2, height/2, UP);
 
     do{
@@ -34,10 +35,11 @@ int main(void) {
             }    
         }
 
+        a->locate();
+        a->draw();
         s->keyboard();
         s->move();
-        s->draw(main_window_renderer);
-        s->collisions();
+        s->draw(renderer);
         frame_delay = frame_rate_ms - (SDL_GetTicks() - frame_start);
         if (frame_delay > 0)
         SDL_Delay(frame_delay);

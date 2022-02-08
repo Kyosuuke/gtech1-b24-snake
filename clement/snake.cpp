@@ -80,23 +80,12 @@ void Snake::move(){
     }
 }
 
-void Snake::draw(SDL_Renderer* main_window_renderer){
-  SDL_Rect rect_to_draw = {head->GetX(), head->GetY(), 30, 30};
-  SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 0, 255);
-  SDL_RenderClear(main_window_renderer);
-  SDL_SetRenderDrawColor(main_window_renderer, 0, 0, 255, 255);
-  SDL_RenderFillRect(main_window_renderer, &rect_to_draw);
-  SDL_RenderPresent(main_window_renderer);
+void Snake::draw(SDL_Renderer* renderer){
+  SDL_Rect rect_to_draw = {head->GetX(), head->GetY(), 20, 20};
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  SDL_RenderClear(renderer);
+  SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+  SDL_RenderFillRect(renderer, &rect_to_draw);
+  SDL_RenderPresent(renderer);
 }
 
-bool Snake::collisions(){
-  if (head->GetY() + square_size <= height)
-    return ;
-  if (head->GetY() >= square_size + height)
-    return false;
-  if (head->GetX() + square_size <= height)
-    return false;
-  if (head->GetY() >= square_size + height)
-    return false;
-  return true;
-  }

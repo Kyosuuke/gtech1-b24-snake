@@ -21,7 +21,24 @@ public:
     
     int SDL_SetRenderTarget(SDL_Renderer* renderer , SDL_Texture*  texture);
 
+    void printImgOnRenderer(const char* file, SDL_Renderer* renderer, SDL_Rect pos, int angle = 0);
+
     int SDL_RenderDrawRects(SDL_Renderer* renderer, const SDL_Rect * rects, int count);
+};
+
+class Apple
+{
+private:
+  
+public:
+    Apple();
+
+    ~Apple();
+
+    void locate();
+    void draw(SDL_Renderer* renderer);
+    int x;
+    int y;
 };
 
 #endif

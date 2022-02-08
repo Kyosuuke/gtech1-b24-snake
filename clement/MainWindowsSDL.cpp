@@ -1,6 +1,12 @@
+
 #include <SDL2/SDL.h>
+#include <time.h>
 #include "MainWindowsSDL.hpp" 
 #include "snake.hpp"
+
+#define WINDOW_HEIGHT  600
+#define WINDOW_WIDTH  600
+#define SQUARE_SIZE 20
 
 int MainSDLWindow::Init(const char* windowName, int width, int height)
 {
@@ -40,4 +46,23 @@ MainSDLWindow::~MainSDLWindow(){
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();  //on quitte la SDL
+}
+
+Apple::Apple(){
+    locate();
+}
+
+void Apple::locate() 
+{
+    srand (time(NULL));
+    this->x = rand() % WINDOW_HEIGHT;
+    this->y = rand() % WINDOW_WIDTH;
+}
+
+void Apple::draw(SDL_Renderer* renderer) 
+{
+    SDL_Rect rect_to_draw = {this->x ,this->y , 20, 20};
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    SDL_RenderFillRect(renderer, &rect_to_draw);
+    SDL_RenderPresent(renderer);
 }
