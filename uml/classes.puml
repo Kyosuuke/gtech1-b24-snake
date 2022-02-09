@@ -12,6 +12,7 @@ class Apple {
 	-playground : Playground*
 	+GetX() : int
 	+GetY() : int
+	+eat() : int
 	-x : int
 	-y : int
 	+draw(SDL_Renderer* renderer) : void
@@ -50,6 +51,7 @@ class Segment {
 	+Segment(int x, int y, Direct direction, Segment* next)
 	+~Segment()
 	-direction : Direct
+	+Getnext() : Segment*
 	-next : Segment*
 	+GetDirection() : int
 	+GetX() : int
@@ -59,6 +61,7 @@ class Segment {
 	+AddToX(int x) : void
 	+AddToY(int y) : void
 	+SetDirection(Direct direction) : void
+	+SetNext(Segment* next) : void
 }
 
 
@@ -66,10 +69,13 @@ class Snake {
 	+Snake(int x, int y, Direct direction, Playground* playground)
 	+~Snake()
 	-playground : Playground*
+	+Gethead() : Segment*
 	-head : Segment*
 	-tail : Segment*
 	+move() : bool
+	+eat() : int
 	+draw(SDL_Renderer* main_window_renderer) : void
+	+grow() : void
 	+keyboard() : void
 }
 
