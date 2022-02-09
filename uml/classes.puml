@@ -1,0 +1,119 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+class Apple {
+	+Apple(Playground* playground)
+	+~Apple()
+	-playground : Playground*
+	+GetX() : int
+	+GetY() : int
+	-x : int
+	-y : int
+	+draw(SDL_Renderer* renderer) : void
+	+locate() : void
+}
+
+
+class MainSDLWindow {
+	+MainSDLWindow()
+	+~MainSDLWindow()
+	+GetRenderer() : SDL_Renderer*
+	-renderer : SDL_Renderer*
+	-texture : SDL_Texture*
+	-window : SDL_Window*
+	+Init(const char* windowName, int width, int height) : int
+	+SDL_RenderDrawRects(SDL_Renderer* renderer, const SDL_Rect* rects, int count) : int
+	+SDL_SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a) : int
+	+SDL_SetRenderTarget(SDL_Renderer* renderer, SDL_Texture* texture) : int
+	+printImgOnRenderer(const char* file, SDL_Renderer* renderer, SDL_Rect pos, int angle) : void
+}
+
+
+class Playground {
+	+Playground(int windowWidth, int windowHeight, int squareSize)
+	+~Playground()
+	+GetNumbOfCol() : int
+	+GetNumbOfRow() : int
+	+GetSquareSize() : int
+	-numbOfCol : int
+	-numbOfRow : int
+	-squareSize : int
+}
+
+
+class Segment {
+	+Segment(int x, int y, Direct direction, Segment* next)
+	+~Segment()
+	-direction : Direct
+	-next : Segment*
+	+GetDirection() : int
+	+GetX() : int
+	+GetY() : int
+	-x : int
+	-y : int
+	+AddToX(int x) : void
+	+AddToY(int y) : void
+	+SetDirection(Direct direction) : void
+}
+
+
+class Snake {
+	+Snake(int x, int y, Direct direction, Playground* playground)
+	+~Snake()
+	-playground : Playground*
+	-head : Segment*
+	-tail : Segment*
+	+move() : bool
+	+draw(SDL_Renderer* main_window_renderer) : void
+	+keyboard() : void
+}
+
+
+enum Direct {
+	DOWN
+	LEFT
+	RIGHT
+	UP
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+
+
+
+/' Aggregation relationships '/
+
+.Apple o-- .Playground
+
+
+.Segment *-- .Direct
+
+
+.Segment o-- .Segment
+
+
+.Snake o-- .Playground
+
+
+.Snake "2" o-- .Segment
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml
+

@@ -25,6 +25,9 @@ public:
     Direct GetDirection();
     int GetX();
     int GetY();
+    Segment* Getnext();
+
+    void SetNext(Segment* next);
 
     void SetDirection(Direct direction);
     void AddToX(int x);
@@ -42,6 +45,9 @@ public :
 
     ~Snake();
 
+    void grow();
+    int eat();
+    Segment* Gethead();
     void keyboard();
     bool move();
     void draw(SDL_Renderer* main_window_renderer);

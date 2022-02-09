@@ -39,10 +39,22 @@ int Segment::GetY(){
   return y;
 }
 
+Segment* Segment::Getnext(){
+  return next;
+}
+
+void Segment::SetNext(Segment* next){
+  this->next = next;
+}
+
 Snake::Snake(int x, int y, Direct direction, Playground* playground)
 {
   this->playground = playground;
   head = new Segment(x,y,direction,NULL);
+}
+
+Segment* Snake::Gethead(){
+  return head;
 }
 
 void Snake::keyboard() {
@@ -63,6 +75,7 @@ void Snake::keyboard() {
 }
 
 bool Snake::move(){
+  
     switch (head->GetDirection())
     {
     case UP:
@@ -98,8 +111,8 @@ bool Snake::move(){
 }
 
 void Snake::draw(SDL_Renderer* renderer){
-  SDL_Rect rect_to_draw = {head->GetX()*playground->GetSquareSize(), head->GetY()*playground->GetSquareSize(), 20, 20};
   SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-  SDL_RenderFillRect(renderer, &rect_to_draw);
+    SDL_Rect rect_to_draw = {head->GetX()*playground->GetSquareSize(), head->GetY()*playground->GetSquareSize(), 20, 20};
+    SDL_RenderFillRect(renderer, &rect_to_draw);
 }
 

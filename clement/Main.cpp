@@ -41,7 +41,9 @@ int main(void) {
         s->keyboard();
         continuePlay = s->move();
         s->draw(renderer);
-
+        if (s->Gethead()->GetX() == a->GetX() && s->Gethead()->GetY() == a->GetY()){
+            a->locate();
+        }
         SDL_RenderPresent(renderer);
 
         Uint32 frame_time_interval = SDL_GetTicks() - frame_time_start;
@@ -50,7 +52,6 @@ int main(void) {
             SDL_Delay(frame_rate - frame_time_interval);
         }
 
-        
     } while (continuePlay);
 
     if (main_window != NULL)

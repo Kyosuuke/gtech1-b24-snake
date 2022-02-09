@@ -21,6 +21,7 @@ public:
     void locate();
     void draw(SDL_Renderer* renderer);
 
+    int eat();
     int GetX();
     int GetY();
 };

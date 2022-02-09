@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include "fruit.hpp"
 #include "MainWindowsSDL.hpp"
+#include "snake.hpp"
 
 #define FRUIT_SIZE 20
 #define HEIGHT 600
