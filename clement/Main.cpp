@@ -8,7 +8,7 @@
 
 int main(void) {
     MainSDLWindow *sdlwin = new MainSDLWindow;
-    int frame_rate = 20 ;
+    int frame_rate = 100 ;
     Direct direction = UP;
     int width = 600, height = 600;
     int square_size = 20;
@@ -18,8 +18,9 @@ int main(void) {
     main_window->Init("Snake", width, height);
     SDL_Renderer* renderer = main_window->GetRenderer();
     bool continuePlay = true;
-    Apple* a = new Apple();
-    Snake* s = new Snake(width/2, height/2, UP);
+    Playground* p = new Playground(600, 600, 20);
+    Apple* a = new Apple(p);
+    Snake* s = new Snake(15, 15, UP, p);
 
     do{
 
@@ -34,11 +35,15 @@ int main(void) {
             }    
         }
 
-        a->locate();
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
         a->draw(renderer);
         s->keyboard();
-        s->move();
+        continuePlay = s->move();
         s->draw(renderer);
+
+        SDL_RenderPresent(renderer);
+
         Uint32 frame_time_interval = SDL_GetTicks() - frame_time_start;
         if (frame_time_interval < frame_rate)
         {   

@@ -26,19 +26,4 @@ public:
     int SDL_RenderDrawRects(SDL_Renderer* renderer, const SDL_Rect * rects, int count);
 };
 
-class Apple
-{
-private:
-  
-public:
-    Apple();
-
-    ~Apple();
-
-    void locate();
-    void draw(SDL_Renderer* renderer);
-    int x;
-    int y;
-};
-
 #endif

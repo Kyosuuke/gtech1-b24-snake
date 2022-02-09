@@ -1,10 +1,12 @@
 #include <SDL2/SDL.h>
 #include "snake.hpp"
 #include "MainWindowsSDL.hpp"
+#include "fruit.hpp"
 
-int square_size = 30;
+int square_size = 20;
 int height = 600;
 int width = 600;
+int number = width/square_size;
 
 Segment::Segment(int x, int y, Direct direction, Segment* next){
   this->x = x;
@@ -37,8 +39,9 @@ int Segment::GetY(){
   return y;
 }
 
-Snake::Snake(int x, int y, Direct direction)
+Snake::Snake(int x, int y, Direct direction, Playground* playground)
 {
+  this->playground = playground;
   head = new Segment(x,y,direction,NULL);
 }
 
@@ -59,33 +62,44 @@ void Snake::keyboard() {
   }
 }
 
-void Snake::move(){
+bool Snake::move(){
     switch (head->GetDirection())
     {
     case UP:
         head->AddToY(-1);
+        if(head->GetY() <= 0){
+          return false;
+        }
         break;
     
     case DOWN:
         head->AddToY(1);
+        if(head->GetY() >= playground->GetNumbOfRow()-1){
+          return false;
+        }
         break;
 
     case LEFT:
         head->AddToX(-1);
+        if(head->GetX() <= 0){
+          return false;
+        }
         break;
 
     case RIGHT:
         head->AddToX(1);
+        if(head->GetX() >= playground->GetNumbOfCol()-1){
+          return false;
+        }
         break;
     }
+
+    return true;
 }
 
 void Snake::draw(SDL_Renderer* renderer){
-  SDL_Rect rect_to_draw = {head->GetX(), head->GetY(), 20, 20};
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-  SDL_RenderClear(renderer);
+  SDL_Rect rect_to_draw = {head->GetX()*playground->GetSquareSize(), head->GetY()*playground->GetSquareSize(), 20, 20};
   SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
   SDL_RenderFillRect(renderer, &rect_to_draw);
-  SDL_RenderPresent(renderer);
 }
 

@@ -1,16 +1,20 @@
 #ifndef PLAYGROUND_HPP
 #define PLAYGROUND_HPP
 
-#include <SDL2/SDL.h>
-#include "MainWindowsSDL.hpp"
+class Playground{
+    public:
+        Playground(int windowWidth, int windowHeight, int squareSize);
 
-class playground
-{
-private:
-    int x;
-    int y;
-public:
-    
+        ~Playground();
+
+        int GetNumbOfCol();
+        int GetNumbOfRow();
+        int GetSquareSize();
+
+    private:
+        int numbOfRow;
+        int numbOfCol;
+        int squareSize;
 };
 
 #endif

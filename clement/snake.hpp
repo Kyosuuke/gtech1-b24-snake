@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <string.h>
 #include "MainWindowsSDL.hpp"
+#include "playground.hpp"
 
 typedef enum {
     UP, DOWN, LEFT, RIGHT
@@ -25,7 +26,6 @@ public:
     int GetX();
     int GetY();
 
-    void Tail(int x, int y, Direct direction);
     void SetDirection(Direct direction);
     void AddToX(int x);
     void AddToY(int y);    
@@ -35,14 +35,15 @@ class Snake
 {
 private :
     Segment* head;
+    Segment* tail;
+    Playground* playground;
 public :
-    Snake(int x, int y, Direct direction);
+    Snake(int x, int y, Direct direction, Playground* playground);
 
     ~Snake();
 
-    bool collisions();
     void keyboard();
-    void move();
+    bool move();
     void draw(SDL_Renderer* main_window_renderer);
 };
 

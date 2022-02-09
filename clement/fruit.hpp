@@ -5,21 +5,24 @@
 #include <SDL2/SDL.h>
 #include "MainWindowsSDL.hpp"
 #include "snake.hpp"
+#include "playground.hpp"
 
-class fruit
+class Apple
 {
 private:
     int x;
     int y;
-    int rand;
+    Playground* playground;
 public:
-    fruit(int x, int y);
+    Apple(Playground* playground);
 
-    ~fruit();
+    ~Apple();
 
-    int apple(int x, int y);
+    void locate();
+    void draw(SDL_Renderer* renderer);
 
-    const int MAX = 600, MIN = 0;
+    int GetX();
+    int GetY();
 };
 
 #endif

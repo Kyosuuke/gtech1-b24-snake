@@ -1,8 +1,19 @@
-#include <SDL2/SDL.h>
 #include "playground.hpp"
-#include "snake.hpp"
-#include "fruit.hpp"
 
-#define witdh = 600
-#define height = 600
+Playground::Playground(int windowWidth, int windowHeight, int squareSize){
+    this->squareSize = squareSize;
+    this->numbOfCol = windowWidth/squareSize;
+    this->numbOfRow = windowHeight/squareSize;
+}
 
+int Playground::GetNumbOfCol(){
+    return numbOfCol;
+}
+
+int Playground::GetNumbOfRow(){
+    return numbOfRow;
+}
+
+int Playground::GetSquareSize(){
+    return squareSize;
+}
