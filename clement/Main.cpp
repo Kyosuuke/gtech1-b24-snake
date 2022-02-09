@@ -1,15 +1,14 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <string.h>
-#include "MainWindowsSDL.cpp" 
-#include "snake.cpp"
+#include "MainWindowsSDL.hpp" 
+#include "snake.hpp"
 #include "fruit.hpp"
 #include "playground.hpp"
 
 int main(void) {
-    int frame_delay;
-    int frame_rate_ms = 20 ;
-    Uint32 frame_start;
+    MainSDLWindow *sdlwin = new MainSDLWindow;
+    int frame_rate = 20 ;
     Direct direction = UP;
     int width = 600, height = 600;
     int square_size = 20;
@@ -24,7 +23,7 @@ int main(void) {
 
     do{
 
-        frame_start = SDL_GetTicks();
+        Uint32 frame_time_start = SDL_GetTicks();
         
         while(SDL_PollEvent(&event))
         {
@@ -36,13 +35,16 @@ int main(void) {
         }
 
         a->locate();
-        a->draw();
+        a->draw(renderer);
         s->keyboard();
         s->move();
         s->draw(renderer);
-        frame_delay = frame_rate_ms - (SDL_GetTicks() - frame_start);
-        if (frame_delay > 0)
-        SDL_Delay(frame_delay);
+        Uint32 frame_time_interval = SDL_GetTicks() - frame_time_start;
+        if (frame_time_interval < frame_rate)
+        {   
+            SDL_Delay(frame_rate - frame_time_interval);
+        }
+
         
     } while (continuePlay);
 
