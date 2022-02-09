@@ -1,4 +1,4 @@
-# SNAKE
+# SNAKE (unfinished)
 Made with C++ with SDL library (In a Linux environnement)
 
 # SDL2 library and gcc
