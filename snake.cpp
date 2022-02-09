@@ -111,7 +111,7 @@ bool Snake::move(){
 }
 
 void Snake::draw(SDL_Renderer* renderer){
-  SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+  SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
     SDL_Rect rect_to_draw = {head->GetX()*playground->GetSquareSize(), head->GetY()*playground->GetSquareSize(), 20, 20};
     SDL_RenderFillRect(renderer, &rect_to_draw);
 }
